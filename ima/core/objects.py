@@ -89,7 +89,7 @@ class Factory:
         temp["id_"]         = d["id_"]
         temp["image"]       = d.get("image")
         temp["description"] = d.get("description")
-        
+
         parameters = d.get("parameters", ())
         parameters = map(Parameter.from_dict, parameters)
         temp["parameters"] = tuple(parameters)
