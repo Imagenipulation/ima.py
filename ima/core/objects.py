@@ -56,9 +56,12 @@ class Parameter:
         temp["name"]        = d["name"]
         temp["description"] = d.get("description")
 
-        actions = d.get("actions", ())
-        actions = map(Action.from_dict, actions)
-        temp["actions"] = tuple(actions)
+        actions = d.get("actions")
+        if actions is not None:
+            actions = map(Action.from_dict, actions)
+            actions = tuple(actions)
+
+        temp["actions"] = actions
 
         return cls(**temp)
 
@@ -71,7 +74,7 @@ class Factory:
     ----------
     id_ : str
         The id_ of factory.
-    image : Optional[str]
+    image_url : Optional[str]
         An Image URL for the factory. Can be `None`.
     description : Optional[str]
         The description of the factory. Can be `None`.
@@ -79,19 +82,22 @@ class Factory:
         All parameters of the factory. Can be `None`.
     """
     id_:         str
-    image:       Optional[str]
+    image_url:   Optional[str]
     description: Optional[str]
     parameters:  Optional[Tuple[Parameter]]
 
     @classmethod
     def from_dict(cls, d: dict):
         temp = {}
-        temp["id_"]         = d["id_"]
-        temp["image"]       = d.get("image")
+        temp["id_"]         = d["id"]
+        temp["image_url"]   = d.get("image_url")
         temp["description"] = d.get("description")
 
-        parameters = d.get("parameters", ())
-        parameters = map(Parameter.from_dict, parameters)
-        temp["parameters"] = tuple(parameters)
+        parameters = d.get("parameters")
+        if parameters is not None:
+            parameters = map(Parameter.from_dict, parameters)
+            parameters = tuple(parameters)
+
+        temp["parameters"] = parameters
 
         return cls(**temp)
