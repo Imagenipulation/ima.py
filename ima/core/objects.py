@@ -58,7 +58,7 @@ class Parameter:
 
         actions = d.get("actions", ())
         actions = map(Action.from_dict, actions)
-        temp["actions"] = actions
+        temp["actions"] = tuple(actions)
 
         return cls(**temp)
 
